@@ -1,0 +1,46 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+string set_to_bit(int num);
+
+int main() {
+	string bit;
+	int num;
+	int temp;
+	int temp1;
+	int temp2;
+	while (cin >> num && num != 0)
+	{
+		temp = 0;
+		for (int i = 1; i <= num; i++)
+		{
+			bit = set_to_bit(i);
+			temp1 = temp2 = 0;
+			for (int i = 0; i < bit.size(); i++)
+			{
+				if (bit[i] == 0)
+					temp1++;
+				else
+					temp2++;
+			}
+			if (temp2 > temp1)
+				temp++;
+		}
+		cout << temp << endl;
+	}
+
+	return 0;
+}
+
+string set_to_bit(int num) {
+	string str_temp, str;
+	while (num != 0)
+	{
+		str_temp = num % 2;
+		str = str + str_temp;
+		num /= 2;
+	}
+
+	return str;
+}

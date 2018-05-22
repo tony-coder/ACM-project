@@ -1,0 +1,161 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include<cmath>
+
+using namespace std;
+char _to_mars(int);
+string _to_normal(string);
+int change(string s);
+string change_to_s(int);
+int main() {
+	int num, count;
+	while (cin>>count)
+	{
+		
+		for (int i = 0; i < count; i++)
+		{
+			cin >> num;
+			vector<string> number(num);
+			vector<int> number_d(num);
+			for (int i = 0; i < num; i++)
+				cin >> number[i];
+			for (int i = 0; i < num; i++)
+			{
+				for (int j = 0; j < number[i].size(); j++)
+					number[i][j] = _to_mars(int(number[i][j]));
+				
+			}
+			for (int i = 0; i < num; i++)
+				number_d[i] = change(number[i]);
+			int temp;
+			for (int i = 0; i < num; i++)
+			{
+				for (int j = i + 1; j < num; j++)
+				{
+					if (number_d[i] > number_d[j])
+					{
+						temp = number_d[i];
+						number_d[i] = number_d[j];
+						number_d[j] = temp;
+					}
+				}
+			}
+			for (int i = 0; i < num; i++)
+				number[i] = change_to_s(number_d[i]);
+			for (int i = 0; i < num; i++)
+				number[i] = _to_normal(number[i]);
+			for (int i = 0; i < num; i++)
+			{
+				cout << number[i];
+				if (i < num - 1)
+					cout << " ";
+			}
+			cout << endl;
+
+		}
+		cout << endl;
+	}
+	return 0;
+}
+int change(string s) {
+	int temp = 0;
+	for (int i = 0; i < s.size(); i++)
+		temp += (int(s[i]) - 48)*pow(10., int(s.size() - 1 - i));
+	return temp;
+}
+char _to_mars(int n) {
+	switch (n - 48)
+	{
+	case 8:
+		return '1';
+	case 1:
+		return '2';
+	case 5:
+		return '3';
+	case 2:
+		return '4';
+	case 3:
+		return '5';
+	case 9:
+		return '6';
+	case 4:
+		return '7';
+	case 7:
+		return '8';
+	case 6:
+		return '9';
+	default:
+		break;
+	}
+	return '0';
+}
+string change_to_s(int n) {
+	int i, j;
+	int temp = n;
+	int temp1;
+	char ch;
+	int count = 0;
+	while (temp > 0)
+	{
+		count++;
+		temp /= 10;
+	}
+	
+	string str;
+	for (i = count - 1; i >= 0; i--)
+	{
+		temp1 = n % 10;
+		ch = temp1 + 48;
+		str += ch;
+		n /= 10;
+	}
+	for (i = 0, j = str.size() - 1; i < j; i++, j--)
+	{
+		char temp;
+		temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+	}
+
+	return str;
+}
+string _to_normal(string str) {
+	
+	for (int i = 0; i < str.size(); i++)
+	{
+		switch (int(str[i]) - 48)
+		{
+		case 1:
+			str[i] = '8';
+			break;
+		case 2:
+			str[i] = '1';
+			break;
+		case 3:
+			str[i] = '5';
+			break;
+		case 4:
+			str[i] = '2';
+			break;
+		case 5:
+			str[i] = '3';
+			break;
+		case 6:
+			str[i] = '9';
+			break;
+		case 7:
+			str[i] = '4';
+			break;
+		case 8:
+			str[i] = '7';
+			break;
+		case 9:
+			str[i] = '6';
+			break;
+		default:
+			break;
+		}
+	}
+	return str;
+}

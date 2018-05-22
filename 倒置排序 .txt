@@ -1,0 +1,67 @@
+#include<iostream>
+#include<string>
+#include<cmath>
+
+using namespace std;
+string inversion(string str);
+int string_to_int(string str);
+int main() {
+	int num, count;
+	string temp;
+	while (cin>>count)
+	{
+		for (int i = 0; i < count; i++)
+		{
+			cin >> num;
+			string * pd = new string[num];
+			for (int i = 0; i < num; i++)
+				cin >> pd[i];
+			for (int i = 0; i < num; i++)
+				pd[i] = inversion(pd[i]);
+			for (int i = 0; i < num; i++)
+			{
+				for (int j = i; j < num; j++)
+				{
+					if (string_to_int( pd[i]) >string_to_int(pd[j]))
+					{
+						temp = pd[i];
+						pd[i] = pd[j];
+						pd[j] = temp;
+					}
+				}
+
+			}
+			for (int i = 0; i < num; i++)
+				pd[i] = inversion(pd[i]);
+			for (int i = 0; i < num; i++)
+			{
+				cout << pd[i];
+				if (i != num - 1)
+					cout << " ";
+			}
+			cout << endl;
+			delete[]pd;
+		}
+	}
+	return 0;
+}
+
+string inversion(string str) {
+	int i, j;
+	char temp;
+	for (i = 0,j = str.size() - 1; i < j; i++, j--)
+	{
+		temp = str[j];
+		str[j] = str[i];
+		str[i] = temp;
+	}
+	return str;
+}
+
+int string_to_int(string str) {
+	int sum = 0;
+	
+	for (int i = 0; i < int(str.size()); i++)
+		sum = sum + (int(str[i]) - 48)*pow(10., int(str.size() - 1 - i));
+	return sum;
+}

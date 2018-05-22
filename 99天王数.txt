@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	int num[20001];
+	int i, j, k, n;
+	int ct = 1;
+	int jt = 9;
+	memset(num, 0, sizeof(num));  //初始化num
+	/*memset()函数原型是extern void *memset(void *buffer, int c, int count)        buffer：为指针或是数组,
+              c：是赋给buffer的值,
+       count：是buffer的长度.
+	*/
+	for (i = 18; i <= 20000; i = i + 9) 
+		num[i] = 1;  //9倍数
+	for (i = 9; i <= 20000; i = i + 10)
+		num[i] = 1;  //个位是9
+	 //十位是9
+	for (i = 90; i <= 99; i++)
+		num[i] = 1;
+	for (j = 0; j <= 9; j++)
+	{
+		for (k = 100; k <= 19900; k = k + 100)
+		{
+			num[k + j + 90] = 1;
+		}
+	}
+	//百位是9
+	for (i = 900; i <= 999; i++) num[i] = 1;
+	for (j = 0; j <= 99; j++)
+	{
+		for (k = 1000; k <= 19000; k = k + 1000)
+		{
+			num[k + j + 900] = 1;
+		}
+	}
+	//千位是9
+	for (i = 9000; i <= 9999; i++) num[i] = 1;
+	for (i = 19000; i <= 19999; i++) num[i] = 1;
+	while (cin >> n)
+	{
+		if (n>jt)
+		{
+			for (i = jt + 1; i <= n; i++)
+			{
+				if (num[i] == 1)
+					ct++;
+				num[i] = ct;
+			}
+			jt = n;
+		}
+		cout << num[n] << endl;
+	}
+	return 0;
+}

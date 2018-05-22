@@ -1,0 +1,53 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+int main() {
+	int num;
+	while (cin >> num && num != 0)
+	{
+		if (num % 2 == 0)
+			continue;
+		/*int **pd;
+		pd = new int *[num];
+		for (int i = 0; i < num; i++)
+			pd[i] = new int[num];
+		pd[num][num] = {};
+		*/
+		vector<vector<int> > pd(num, vector<int>(num, 0));
+		pd[num - 1][(num - 1) / 2] = 1;
+		int count = 2;
+		int i, j;
+		for (i = 0, j = (num - 1) / 2 + 1; count <= num * num; count++, i++, j++)
+		{
+			if (j > num - 1)
+				j = 0;
+			if (i > num - 1)
+				i = 0;
+			if (pd[i][j] != 0)
+			{
+				if (i==0 ||i==1||j==0)
+				{
+					j = num - 1;
+					i = num - 1 - 1;
+				}
+				else
+				{
+					i -= 2;
+					j--;
+				}
+			}
+			pd[i][j] = count;
+		}
+		for (int i = 0; i < num; i++)
+		{
+			for (int j = 0; j < num; j++)
+			{
+				printf("%3d", pd[i][j]);
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	return 0;
+}

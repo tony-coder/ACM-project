@@ -1,0 +1,39 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main() {
+	int num;
+	string temp;
+	while (cin>>num && num!=0)
+	{
+		string * pd = new string[num];
+		for (int i = 0; i < num; i++)
+			cin >> pd[i];
+		for (int i = 0; i < num; i++)
+		{
+			for (int j = i; j < num; j++)
+			{
+				if (pd[i].size()>pd[j].size())
+				{
+					temp = pd[i];
+					pd[i] = pd[j];
+					pd[j] = temp;
+				}
+				else if (pd[i].size() == pd[j].size())
+				{
+					if (pd[i]>pd[j])
+					{
+						temp = pd[i];
+						pd[i] = pd[j];
+						pd[j] = temp;
+					}
+				}
+			}
+		}
+		for (int i = 0; i < num; i++)
+			cout << pd[i] << endl;
+		cout << endl;
+		delete[]pd;
+	}
+	return 0;
+}

@@ -1,0 +1,45 @@
+#include<iostream>
+#include<string>
+using namespace std;
+bool decide(string);
+int main() {
+	string str;
+	int size, i, s;
+	
+	while (cin >> str)
+	{
+		size = str.size();
+		while (size>0)
+		{
+			s = 1;
+			for (i = 0; i <= str.size() - size + 1; i++)
+			{
+				string temp;
+				for (int j = 0; j < size; j++)
+				{
+					temp += str[i + j];
+				}
+				if (decide(temp) == 1)
+				{
+					s = size;
+					break;
+				}
+			}
+			if (s != 1)
+				break;
+			size--;
+		}
+		cout << s << endl;
+	}
+	return 0;
+}
+bool decide(string str) {
+	int i, j;
+	int d = 1;
+	for (i = 0, j = str.size() - 1; i < j; i++, j--)
+	{
+		if (str[i] != str[j])
+			d = 0;
+	}
+	return d;
+}

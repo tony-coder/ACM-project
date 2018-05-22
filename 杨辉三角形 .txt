@@ -1,0 +1,49 @@
+#include<stdio.h>
+int main() {
+	int num, i, j;
+	int count = 0;
+	int temp1 = 0;
+	
+	int total[50] = { 0 };
+	for (i = 0; i < 50; i++)
+	{
+		if (scanf_s("%d", &total[i]))
+			temp1++;
+		
+	}
+	while (count <= temp1)
+	{
+		num = total[count];
+		if (num > 10 || num < 0)
+		{
+			count--;
+			continue;
+		}
+		int **pd = new int *[num];
+		for ( i = 0; i < num; i++)
+			pd[i] = new int[num];
+		for (i = 0; i < num; i++)
+		{
+			for (int s = (num - 1 - i) * 3; s > 0; s--)
+				printf(" ");
+			for ( j = 0; j <= i; j++)
+			{
+				if (j == 0 || j == i)
+					pd[i][j] = 1;
+				else
+					pd[i][j] = pd[i - 1][j - 1] + pd[i - 1][j];
+				if (i == j)
+					printf("%3d", pd[i][j]);
+				else
+					printf("%3d   ", pd[i][j]);
+			}
+			printf("\n");
+		}
+
+		if (count < temp1 - 1)
+			printf("\n");
+		count++;
+	}
+	
+	return 0;
+}

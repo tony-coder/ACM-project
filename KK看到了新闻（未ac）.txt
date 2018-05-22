@@ -1,0 +1,77 @@
+#include<iostream>
+#include<vector>
+#include<cmath>
+
+using namespace std;
+struct point
+{
+	int x, y;
+};
+void mysort(point *, int);
+void mysort_p(vector<int> & pd, int num);
+
+int main() {
+	int num;
+	while (cin>>num)
+	{
+		point * points = new point[num];
+		
+		for (int i = 0; i < num; i++)
+			cin >> points[i].x >> points[i].y;
+		mysort(points, num);
+		int n = points[num - 1].y - points[0].y;
+		if (n == 0)
+		{
+			cout << num * points[0].y << endl;
+			continue;
+		}
+		vector<int> d(n);
+		
+		
+		int count = 0;
+		for (int i = points[0].y; i < points[num - 1].y; i++)
+		{
+			for (int j = 0; j < num; j++)
+			{
+				d[count] += abs(points[j].y - i);
+			}
+			count++;
+		}
+		mysort_p(d, n - 1);
+		cout << d[points[num - 1].y - points[0].y - 1] << endl;
+		delete[] points;
+		
+	}
+	return 0;
+}
+
+void mysort(point *pd,int num) {
+	int temp;
+	for (int i = 0; i < num; i++)
+	{
+		for (int j = i; j < num; j++)
+		{
+			if (pd[i].y > pd[j].y)
+			{
+				temp = pd[i].y;
+				pd[i].y = pd[j].y;
+				pd[j].y = temp;
+			}
+		}
+	}
+}
+void mysort_p(vector<int> & pd, int num) {
+	int temp;
+	for (int i = 0; i < num; i++)
+	{
+		for (int j = i; j < num; j++)
+		{
+			if (pd[i] > pd[j])
+			{
+				temp = pd[i];
+				pd[i] = pd[j];
+				pd[j] = temp;
+			}
+		}
+	}
+}

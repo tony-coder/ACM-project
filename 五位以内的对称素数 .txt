@@ -1,0 +1,59 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+int main() {
+	int num;
+	int count = 0;
+	int decide;
+	int i, j;
+	while (cin >> num && count <= 50 && num > 0)
+	{
+		decide = 1;
+		if (num >= 100000 || num <= 1)
+		{
+			cout << "No" << endl;
+			continue;
+		}
+		int decide_s = 1;
+		int tmp = sqrt(num);
+		for (int i = 2; i <= tmp; i++)
+			if (num %i == 0)
+				decide_s = 0;
+
+		if (!decide_s)
+		{
+			cout << "No" << endl;
+			continue;
+		}
+		
+
+		int temp = num;
+		int d = 0;
+		while (temp > 0)
+		{
+			temp /= 10;
+			d++;
+		}
+		int *pd = new int[d];
+		int temp1;
+		for (i = 0; i < d; i++)
+		{
+			temp1 = num % 10;
+			pd[i] = temp1;
+			num /= 10;
+		}
+		for (i = 0, j = d - 1; i < j; i++, j--)
+		{
+			if (pd[i] != pd[j])
+				decide = 0;
+		}
+		if (decide)
+			cout << "Yes" << endl;
+		else if(!decide)
+			cout << "No" << endl;
+
+		count++;
+	}
+	
+	return 0;
+}
