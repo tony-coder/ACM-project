@@ -1,0 +1,56 @@
+//一些向量数据，表示许多学生的各门成绩。编程，从中挑出平均分数在60分以上的学生进行排序输出。
+#include<iostream>
+#include<string>
+using namespace std;
+struct node
+{
+	string name;
+	int num1, num2, num3, num4, num5;
+	double ave;
+	node * next;
+};
+
+int main() {
+	node * head = NULL;
+	node * prev = head;
+	string name;
+	int num1, num2, num3, num4, num5;
+	while (cin >> name >> num1 >> num2 >> num3 >> num4 >> num5)
+	{
+		if ((num1 + num2 + num3 + num4 + num5) / 5 < 61)
+			continue;
+		node *curr = new node;
+		curr->name = name;
+		curr->num1 = num1;
+		curr->num2 = num2;
+		curr->num3 = num3;
+		curr->num4 = num4;
+		curr->num5 = num5;
+		curr->ave = (num1 + num2 + num3 + num4 + num5) / 5.0;
+		if (head == NULL)
+			head = curr;
+		else
+			prev->next = curr;
+		curr->next = NULL;
+		prev = curr;
+	}
+	node temp;
+	node *pr;
+	for (node *p = head; p; p = p->next) {
+		for (node *q = p->next; q; q = q->next) {
+			if (q->ave>p->ave)
+			{
+				temp = *p;
+				pr = p->next;
+				*p = *q;
+				p->next = pr;
+				temp.next = q->next;
+				*q = temp;
+			}
+		}
+	}
+	int count = 1;
+	for (node *p = head; p; p = p->next, count++)
+		cout << count << " " << p->name << endl;
+	return 0;
+}

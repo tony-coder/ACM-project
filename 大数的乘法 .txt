@@ -1,0 +1,48 @@
+//给出一些整数对，一个是可能接近100位的大数，另一个只有1位数，求这些整数对的乘积。
+#include<iostream>
+#include<string>
+using namespace std;
+int main() {
+	string num1;
+	char temp[100];
+	memset(temp, '\0', 100);
+	int num2;
+	int count;
+	int if_carry = 0;
+	char ch;
+	while (cin >> num1 >> num2)
+	{
+		count = 0;
+		if (num2 == 0 || num1[0] == '0')
+		{
+			cout << 0 << endl;
+			continue;
+		}
+		for (int i = num1.size() - 1; i >= 0; i--, count++)
+			temp[count] = num1[i];
+		for (int i = 0; i < count; i++)
+		{
+			ch = ((temp[i] - 48)*num2 + if_carry) % 10 + 48;
+			if_carry = ((temp[i] - 48)*num2 + if_carry) / 10;
+			temp[i] = ch;
+			if (i == count - 1 && if_carry > 0)
+			{
+				temp[count] = if_carry + 48;
+				count++;
+				if_carry = 0;
+				break;
+			}
+		}
+		int decide = 1;
+		for (int i = 0; i < count; i++)
+		{
+			if (temp[count - i - 1] == '0' && decide == 1)
+				continue;
+			else
+				decide = 0;
+			cout << temp[count - i - 1];
+		}
+		cout << endl;
+	}
+	return 0;
+}
